@@ -1,22 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
 
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import NewButton from './newButton';
+
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          WedGuests
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Stack direction="column" spacing={2}>
+          <NewButton />
+          <Button variant="contained" endIcon={<NoteAddIcon />}>
+            Kontynuuj projekt
+          </Button>
+        </Stack>
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
     </div>
   );
