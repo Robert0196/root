@@ -19,14 +19,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import './newButton.css';
-import {useRef} from 'react';
+import { useRef } from 'react';
 
-let stoly=[]
+let stoly = []
 
 const actions = [
   { icon: <DeleteForeverIcon />, name: 'Usuń stół' },
-  { icon: <CircleIcon />, name: 'Stół okrągły' },
-  { icon: <RectangleIcon />, name: 'Stół prostokątny' },
+  { icon: <CircleIcon />, name: 'Stół okrągły', typ: 'okragly' },
+  { icon: <RectangleIcon />, name: 'Stół prostokątny', typ: 'prostokatny' },
 ];
 
 const style = {
@@ -44,15 +44,19 @@ const style = {
 function New() {
   const ref = useRef()
   const [open, setOpen] = React.useState(false);
+  const [typStolu, setTyp] = React.useState(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
-  const handleSend = () => {
-    console.log( ref.current.lastChild.firstChild.value )
-    setOpen(false);
+
+
+  const otworzNowyStol = (typStolu) => {
+    setOpen(true)
+    setTyp(typStolu)
   }
-   const dodanieStolu = (stol) => {
+  const dodanieStolu = (stol) => {
+    console.log(ref.current.lastChild.firstChild.value)
     stoly.push(stol)
+    setOpen(false);
   }
   const usunStol = (index) => {
     stoly.splice(index, 1)
@@ -111,7 +115,7 @@ function New() {
                 icon={action.icon}
                 tooltipTitle={action.name}
                 tooltipOpen
-                onClick={handleOpen}
+                onClick={action.name === 'Usuń stół' ? usunStol : handleOpen}
               />
             ))}
           </SpeedDial>
@@ -138,7 +142,7 @@ function New() {
                 ref={ref}
               />
             </Typography>
-            <Button variant="contained" endIcon={<AddIcon />} onClick={handleSend}>
+            <Button variant="contained" endIcon={<AddIcon />} onClick={dodanieStolu}>
               Dodaj
             </Button>
           </Box>
